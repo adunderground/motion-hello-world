@@ -3,11 +3,7 @@ import { motion } from 'motion/react';
 
 import styles from './Toggle.module.css';
 
-function Toggle({
-  value,
-  onChange,
-  ...delegated
-}) {
+function Toggle({ value, onChange, ...delegated }) {
   return (
     <button
       type="button"
@@ -17,14 +13,17 @@ function Toggle({
       onClick={() => onChange(!value)}
       {...delegated}
     >
-      <span
-        className={styles.ball}
-        style={{
-          transition: 'transform 300ms',
-          transform: `translateX(${
-            value ? '100%' : '0%'
-          })`,
+      <motion.span
+        initial={false}
+        animate={{
+          x: value ? '100%' : 0,
         }}
+        transition={{
+          type: 'spring',
+          stiffness: 225,
+          damping: 30,
+        }}
+        className={styles.ball}
       />
     </button>
   );
